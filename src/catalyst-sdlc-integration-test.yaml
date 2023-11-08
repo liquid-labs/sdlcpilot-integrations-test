@@ -1,0 +1,25 @@
+name: Catalyst SDLC integration tests
+
+on:
+  push:
+
+jobs:
+  build_and_test:
+    name: Test Catalyst SDLC on ${{ matrix.os }}/${{ matrix.node-version }}
+
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        node-version: [ 18.x, 20.x ]
+        os: [ ubuntu-latest, windows-latest, macos-latest ]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm i -g @liquid-labs/catalyst-server
+      - run: npm i -g @liquid-labs/catalyst-cli
+      - run: npm test
