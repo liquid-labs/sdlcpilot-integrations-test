@@ -1,5 +1,5 @@
 {
-  "name": "@liquid-labs/catalyst-sdlc-integrations-test",
+  "name": "@liquid-labs/sdlcpilot-integrations-test",
   "version": "1.0.0-alpha.0",
   "description": "",
   "scripts": {
@@ -17,11 +17,14 @@
   "keywords": [],
   "author": "Zane Rockenbaugh <zane@liquid-labs.com>",
   "license": "UNLICENSED",
-  "repository": "git+ssh://git@github.com/liquid-labs/catalyst-sdlc-integrations-test.git",
-  "bugs": {
-    "url": "https://github.com/liquid-labs/catalyst-sdlc-integrations-test/issues"
+  "repository": {
+    "url": "git+ssh://git@github.com/liquid-labs/sdlcpilot-integrations-test.git",
+    "type": "git"
   },
-  "homepage": "https://github.com/liquid-labs/catalyst-sdlc-integrations-test#readme",
+  "bugs": {
+    "url": "https://github.com/liquid-labs/sdlcpilot-integrations-test/issues"
+  },
+  "homepage": "https://github.com/liquid-labs/sdlcpilot-integrations-test#readme",
   "devDependencies": {
     "@liquid-labs/catalyst-resource-babel-and-rollup": "^1.0.0-alpha.3",
     "@liquid-labs/catalyst-resource-eslint": "^1.0.0-alpha.1",
