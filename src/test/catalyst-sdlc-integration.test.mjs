@@ -11,7 +11,7 @@ describe('sdlcpilot-github-node', () => {
     tryExec(`npm i -g ${SERVER_PACKAGE}`)
     tryExec(`npm i -g ${CLI_PACKAGE}`)
     tryExec(`TERMINAL_STYLE=greenOnBlack TERMINAL_WIDTH=0 ${CLI_COMMAND} --setup`)
-    tryExec(`${CLI_COMMAND} server plugins bundles add -- installBundles=catalyst-sdlc-node`)
+    tryExec(`${CLI_COMMAND} server plugins bundles add -- bundles=catalyst-sdlc-node`)
   })
 
   test('loads 10 handler plugins (plus original core)', () => {
