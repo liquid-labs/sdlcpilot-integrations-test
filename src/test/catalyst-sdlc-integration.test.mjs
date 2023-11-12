@@ -11,12 +11,13 @@ const SERVER_PACKAGE='comply-server'
 jest.setTimeout(60 * 1000)
 
 const logCommandResult = (result) => {
-  if (result.stdout.length > 0) {
+  process.stdout.write('exit code: ' + result.code + '\n')
+  // if (result.stdout.length > 0) {
     process.stdout.write(result.stdout)
-  }
-  if (result.stderr.length > 0) {
+  // }
+  // if (result.stderr.length > 0) {
     process.stderr.write(result.stderr)
-  }
+  //}
 }
 
 describe('sdlcpilot-github-node', () => {
