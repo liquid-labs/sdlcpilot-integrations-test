@@ -1,4 +1,5 @@
 /* global describe expect test */
+const { spawn } from 'node:child_process'
 
 import { tryExec } from '@liquid-labs/shell-toolkit'
 
@@ -15,17 +16,21 @@ describe('sdlcpilot-github-node', () => {
     process.stdout.write(tryExec(`npm i -g ${CLI_PACKAGE}`).stdout)
 
     process.stdout.write('Starting server...\n')
-    new Promise((resolve) => {
-      tryExec(SERVER_COMMAND)
-      resolve()
+    const serverProcess = spawn(SERVER_COMMAND, { detached: true })
+    
+    serverProcess.stdout.on('data', (data) => {
+      process.stdout.write(`stdout: ${data}`)
     })
-      .then(() => { process.stdout.write('Server process has exitted.') })
+    serverProcess.stderr.on('data', (data) => {
+      process.stdout.write(`stdout: ${data}`)
+    })
+
     process.stdout.write('Giving it time to spin up...\n')
     await new Promise((resolve) => setTimeout(resolve, 20 * 1000 /* 20 seconds */))
 
     process.stdout.write('Running setup...\n')
     process.stdout.write(tryExec(`TERMINAL_STYLE=greenOnBlack TERMINAL_WIDTH=-1 ${CLI_COMMAND} --setup`).stdout)
-    
+
     process.stdout.write('Installing bundle...\n')
     process.stdout.write(tryExec(`${CLI_COMMAND} server plugins bundles add -- bundles=catalyst-sdlc-node`).stdout)
   })
