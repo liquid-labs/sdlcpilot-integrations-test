@@ -9,11 +9,21 @@ const SERVER_COMMAND=`comply-server`
 const SERVER_PACKAGE='comply-server'
 
 jest.setTimeout(60 * 1000)
+
+const logCommandResult = (result) => {
+  if (result.stdout.length > 0) {
+    process.stdout.write(result.stdout)
+  }
+  if (result.stderr.length > 0) {
+    process.stderr.write(result.stderr)
+  }
+}
+
 describe('sdlcpilot-github-node', () => {
   beforeAll(async () => {
     process.stdout.write(`Installing ${SERVER_PACKAGE} and ${CLI_PACKAGE}...\n`)
-    process.stdout.write(tryExec(`npm i -g ${SERVER_PACKAGE}`).stdout)
-    process.stdout.write(tryExec(`npm i -g ${CLI_PACKAGE}`).stdout)
+    logCommandResult(tryExec(`npm i -g ${SERVER_PACKAGE}`))
+    logCommandResult(tryExec(`npm i -g ${CLI_PACKAGE}`))
 
     process.stdout.write('Starting server...\n')
     const serverProcess = spawn(SERVER_COMMAND, { detached: true })
@@ -29,10 +39,10 @@ describe('sdlcpilot-github-node', () => {
     await new Promise((resolve) => setTimeout(resolve, 20 * 1000 /* 20 seconds */))
 
     process.stdout.write('Running setup...\n')
-    process.stdout.write(tryExec(`TERMINAL_STYLE=greenOnBlack TERMINAL_WIDTH=-1 ${CLI_COMMAND} --setup`).stdout)
+    logCommandResult(tryExec(`TERMINAL_STYLE=greenOnBlack TERMINAL_WIDTH=-1 ${CLI_COMMAND} --setup`))
 
     process.stdout.write('Installing bundle...\n')
-    process.stdout.write(tryExec(`${CLI_COMMAND} server plugins bundles add -- bundles=catalyst-sdlc-node`).stdout)
+    logCommandResult(tryExec(`${CLI_COMMAND} server plugins bundles add -- bundles=catalyst-sdlc-node`))
   })
 
   afterAll(() => {
