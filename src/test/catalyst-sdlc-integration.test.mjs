@@ -1,5 +1,5 @@
 /* global describe expect test */
-const { spawn } from 'node:child_process'
+import { spawn } from 'node:child_process'
 
 import { tryExec } from '@liquid-labs/shell-toolkit'
 
