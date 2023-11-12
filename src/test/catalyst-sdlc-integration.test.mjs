@@ -14,6 +14,10 @@ describe('sdlcpilot-github-node', () => {
     tryExec(`${CLI_COMMAND} server plugins bundles add -- bundles=catalyst-sdlc-node`)
   })
 
+  afterAll() => {
+    tryExec(`${CLI_COMMAND} server stop`)
+  }
+
   test('loads 10 handler plugins (plus original core)', () => {
     const result = tryExec(`${CLI_COMMAND} server plugins handlers list | wc -l`)
     expect(result.stdout.trim()).toBe('11')
