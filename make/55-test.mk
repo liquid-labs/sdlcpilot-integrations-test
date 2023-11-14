@@ -36,6 +36,7 @@ $(CATALYST_TEST_PASS_MARKER) $(CATALYST_TEST_REPORT) $(TEST_STAGING)/coverage &:
 	git rev-parse HEAD >> $(CATALYST_TEST_REPORT)
 	( set -e; set -o pipefail; \
 	  ( cd $(TEST_STAGING) && $(CATALYST_JEST) \
+	  	--detectOpenHandles \
 	    --config=$(CATALYST_JEST_CONFIG) \
 	    --runInBand \
 	    $(TEST) 2>&1 ) \

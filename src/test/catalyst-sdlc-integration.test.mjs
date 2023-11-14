@@ -44,6 +44,9 @@ describe('sdlcpilot-github-node', () => {
     process.stdout.write('WORKAROUND: Installing liq-integrations...\n') // TODO: WORKAROUND
     logCommandResult(tryExec(`${CLI_COMMAND} server plugins handlers add -- npmNames=@liquid-labs/liq-integrations`))
 
+    process.stdout.write('DEBUG WAIT...\n')
+    await new Promise((resolve) => setTimeout(resolve, 5 * 1000 /* 5 seconds */))
+
     process.stdout.write('Installing bundle...\n')
     logCommandResult(tryExec(`${CLI_COMMAND} server plugins bundles add -- bundles=catalyst-sdlc-node`))
   })
