@@ -27,9 +27,9 @@ describe('sdlcpilot-github-node', () => {
     logCommandResult(tryExec(`TERMINAL_STYLE=greenOnBlack TERMINAL_WIDTH=-1 ${CLI_COMMAND} --setup`))
 
     process.stdout.write('Starting server...\n')
-    serverProcess = spawn(SERVER_COMMAND, { detached: true })
-    serverProcess.unref()
-    // serverProcess = spawn(SERVER_COMMAND)
+    // serverProcess = spawn(SERVER_COMMAND, { detached: true })
+    // serverProcess.unref()
+    serverProcess = spawn(SERVER_COMMAND)
     
     serverProcess.stdout.on('data', (data) => {
       process.stdout.write(`server stdout: ${data}`)
