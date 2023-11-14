@@ -30,6 +30,7 @@ describe('sdlcpilot-github-node', () => {
 
     process.stdout.write('Starting server...\n')
     const serverProcess = spawn(SERVER_COMMAND, { detached: true })
+    serverProcess.unref()
     
     serverProcess.stdout.on('data', (data) => {
       process.stdout.write(`stdout: ${data}`)
