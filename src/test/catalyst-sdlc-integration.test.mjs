@@ -27,9 +27,9 @@ describe('sdlcpilot-github-node', () => {
     logCommandResult(tryExec(`TERMINAL_STYLE=greenOnBlack TERMINAL_WIDTH=-1 ${CLI_COMMAND} --setup`))
 
     process.stdout.write('Starting server...\n')
-    // const serverProcess = spawn(SERVER_COMMAND, { detached: true })
-    // serverProcess.unref()
-    serverProcess = spawn(SERVER_COMMAND)
+    const serverProcess = spawn(SERVER_COMMAND, { detached: true })
+    serverProcess.unref()
+    // serverProcess = spawn(SERVER_COMMAND)
     
     serverProcess.stdout.on('data', (data) => {
       process.stdout.write(`server stdout: ${data}`)
@@ -49,6 +49,7 @@ describe('sdlcpilot-github-node', () => {
   })
 
   afterAll(() => {
+    process.stdout.write('Stopping the server...\n')
     logCommandResult(tryExec(`${CLI_COMMAND} server stop`))
     serverProcess.kill()
   })
