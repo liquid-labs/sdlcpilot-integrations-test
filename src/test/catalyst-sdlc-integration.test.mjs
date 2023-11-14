@@ -22,9 +22,11 @@ const logCommandResult = (result) => {
 
 describe('sdlcpilot-github-node', () => {
   beforeAll(async () => {
-    process.stdout.write(`Installing ${SERVER_PACKAGE} and ${CLI_PACKAGE}...\n`)
-    logCommandResult(tryExec(`npm i -g ${SERVER_PACKAGE}`))
+    process.stdout.write(`Installing ${CLI_PACKAGE}...\n`)
     logCommandResult(tryExec(`npm i -g ${CLI_PACKAGE}`))
+
+    process.stdout.write('Running setup...\n')
+    logCommandResult(tryExec(`TERMINAL_STYLE=greenOnBlack TERMINAL_WIDTH=-1 ${CLI_COMMAND} --setup`))
 
     process.stdout.write('Starting server...\n')
     const serverProcess = spawn(SERVER_COMMAND, { detached: true })
@@ -38,9 +40,6 @@ describe('sdlcpilot-github-node', () => {
 
     process.stdout.write('Giving it time to spin up...\n')
     await new Promise((resolve) => setTimeout(resolve, 5 * 1000 /* 5 seconds */))
-
-    process.stdout.write('Running setup...\n')
-    logCommandResult(tryExec(`TERMINAL_STYLE=greenOnBlack TERMINAL_WIDTH=-1 ${CLI_COMMAND} --setup`))
 
     process.stdout.write('WORKAROUND: Installing liq-integrations...\n') // TODO: WORKAROUND
     logCommandResult(tryExec(`${CLI_COMMAND} server plugins handlers add -- npmNames=@liquid-labs/liq-integrations`))
