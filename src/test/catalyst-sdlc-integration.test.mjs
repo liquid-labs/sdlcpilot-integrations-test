@@ -12,12 +12,8 @@ jest.setTimeout(60 * 1000)
 
 const logCommandResult = (result) => {
   process.stdout.write('exit code: ' + result.code + '\n')
-  // if (result.stdout.length > 0) {
-    process.stdout.write(result.stdout)
-  // }
-  // if (result.stderr.length > 0) {
-    process.stderr.write(result.stderr)
-  //}
+  process.stdout.write(result.stdout)
+  process.stderr.write(result.stderr)
 }
 
 describe('sdlcpilot-github-node', () => {
@@ -26,17 +22,19 @@ describe('sdlcpilot-github-node', () => {
     logCommandResult(tryExec(`npm i -g ${CLI_PACKAGE}`))
 
     process.stdout.write('Running setup...\n')
+    // the '-1' width turns off wrapping, which is important for the tests to get consistent output
     logCommandResult(tryExec(`TERMINAL_STYLE=greenOnBlack TERMINAL_WIDTH=-1 ${CLI_COMMAND} --setup`))
 
     process.stdout.write('Starting server...\n')
-    const serverProcess = spawn(SERVER_COMMAND, { detached: true })
-    serverProcess.unref()
+    // const serverProcess = spawn(SERVER_COMMAND, { detached: true })
+    // serverProcess.unref()
+    const serverProcess = spawn(SERVER_COMMAND)
     
     serverProcess.stdout.on('data', (data) => {
-      process.stdout.write(`stdout: ${data}`)
+      process.stdout.write(`server stdout: ${data}`)
     })
     serverProcess.stderr.on('data', (data) => {
-      process.stdout.write(`stdout: ${data}`)
+      process.stdout.write(`server stderr: ${data}`)
     })
 
     process.stdout.write('Giving it time to spin up...\n')
@@ -50,7 +48,7 @@ describe('sdlcpilot-github-node', () => {
   })
 
   afterAll(() => {
-    tryExec(`${CLI_COMMAND} server stop`)
+    logCommandResult(tryExec(`${CLI_COMMAND} server stop`))
   })
 
   test('loads 10 handler plugins (plus original core)', () => {
