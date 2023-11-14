@@ -17,6 +17,7 @@ const logCommandResult = (result) => {
 }
 
 describe('sdlcpilot-github-node', () => {
+  let serverProcess
   beforeAll(async () => {
     process.stdout.write(`Installing ${CLI_PACKAGE}...\n`)
     logCommandResult(tryExec(`npm i -g ${CLI_PACKAGE}`))
@@ -28,7 +29,7 @@ describe('sdlcpilot-github-node', () => {
     process.stdout.write('Starting server...\n')
     // const serverProcess = spawn(SERVER_COMMAND, { detached: true })
     // serverProcess.unref()
-    const serverProcess = spawn(SERVER_COMMAND)
+    serverProcess = spawn(SERVER_COMMAND)
     
     serverProcess.stdout.on('data', (data) => {
       process.stdout.write(`server stdout: ${data}`)
@@ -49,6 +50,7 @@ describe('sdlcpilot-github-node', () => {
 
   afterAll(() => {
     logCommandResult(tryExec(`${CLI_COMMAND} server stop`))
+    serverProcess.kill()
   })
 
   test('loads 10 handler plugins (plus original core)', () => {
