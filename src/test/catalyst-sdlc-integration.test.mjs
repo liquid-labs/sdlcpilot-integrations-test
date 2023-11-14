@@ -44,23 +44,19 @@ describe('sdlcpilot-github-node', () => {
     process.stdout.write('WORKAROUND: Installing liq-integrations...\n') // TODO: WORKAROUND
     logCommandResult(tryExec(`${CLI_COMMAND} server plugins handlers add -- npmNames=@liquid-labs/liq-integrations`))
 
-    process.stdout.write('DEBUG WAIT...\n')
+    process.stdout.write('Giving 5 seconds for logs to settle...\n')
     await new Promise((resolve) => setTimeout(resolve, 5 * 1000 /* 5 seconds */))
 
     process.stdout.write('Installing bundle...\n')
     logCommandResult(tryExec(`${CLI_COMMAND} server plugins bundles add -- bundles=catalyst-sdlc-node`))
 
-    process.stdout.write('DEBUG WAIT...\n')
+    process.stdout.write('Giving 5 seconds for logs to settle...\n')
     await new Promise((resolve) => setTimeout(resolve, 5 * 1000 /* 5 seconds */))
   })
 
   afterAll(() => {
-    logCommandResult(tryExec('ps aux | grep comply-server')) // DEBUG
     process.stdout.write('Stopping the server...\n')
     logCommandResult(tryExec(`${CLI_COMMAND} server stop`))
-    logCommandResult(tryExec('ps aux | grep comply-server')) // DEBUG
-    serverProcess.kill()
-    logCommandResult(tryExec('ps aux | grep comply-server')) // DEBUG
   })
 
   test('loads 10 handler plugins (plus original core)', () => {
