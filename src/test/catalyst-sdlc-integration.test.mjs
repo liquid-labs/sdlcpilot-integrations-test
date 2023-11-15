@@ -7,6 +7,7 @@ const CLI_COMMAND='sdlc'
 const CLI_PACKAGE='sdlcpilot-cli'
 const SERVER_COMMAND=`comply-server`
 const SERVER_PACKAGE='comply-server'
+const BUNDLE_NAME='sdlcpilot-github-node'
 
 jest.setTimeout(60 * 1000)
 
@@ -48,7 +49,7 @@ describe('sdlcpilot-github-node', () => {
     await new Promise((resolve) => setTimeout(resolve, 5 * 1000 /* 5 seconds */))
 
     process.stdout.write('Installing bundle...\n')
-    logCommandResult(tryExec(`${CLI_COMMAND} server plugins bundles add -- bundles=catalyst-sdlc-node`))
+    logCommandResult(tryExec(`${CLI_COMMAND} server plugins bundles add -- bundles=${BUNDLE_NAME}`))
 
     process.stdout.write('Giving 5 seconds for logs to settle...\n')
     await new Promise((resolve) => setTimeout(resolve, 5 * 1000 /* 5 seconds */))
