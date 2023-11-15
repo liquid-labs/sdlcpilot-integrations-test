@@ -1,0 +1,29 @@
+name: Catalyst SDLC integration tests
+
+on:
+  workflow_dispatch: # runs manually ATM
+
+jobs:
+  build_and_test:
+    name: Test Catalyst SDLC on ${{ matrix.os }}/${{ matrix.node-version }}
+
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        node-version: [ 18.x, 20.x ]
+        os: [ ubuntu-latest, macos-latest ]
+        # The 'make test' doesn't actually run on Windows and exist with 'nothing to do'. Don't know why, but the 
+        # windows test is essentially a false (or at least an ambiguous) positive until we figure it out
+        # os: [ ubuntu-latest, windows-latest, macos-latest ]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm ci
+        shell: bash
+      - run: npm test
+        shell: bash

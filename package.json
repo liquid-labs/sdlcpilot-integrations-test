@@ -1,17 +1,34 @@
 {
-  "name": "@liquid-labs/catalyst-sdlc-integrations-test",
+  "name": "@liquid-labs/sdlcpilot-integrations-test",
   "version": "1.0.0-alpha.0",
   "description": "",
-  "main": "dist/catalyst-sdlc-integrations-test.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "make",
+    "lint": "make lint",
+    "lint:fix": "make lint-fix",
+    "test": "make test",
+    "prepack": "make build",
+    "preversion": "make test && make lint",
+    "qa": "make qa"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   },
   "keywords": [],
   "author": "Zane Rockenbaugh <zane@liquid-labs.com>",
   "license": "UNLICENSED",
-  "repository": "git+ssh://git@github.com/liquid-labs/catalyst-sdlc-integrations-test.git",
-  "bugs": {
-    "url": "https://github.com/liquid-labs/catalyst-sdlc-integrations-test/issues"
+  "repository": {
+    "url": "git+ssh://git@github.com/liquid-labs/sdlcpilot-integrations-test.git",
+    "type": "git"
   },
-  "homepage": "https://github.com/liquid-labs/catalyst-sdlc-integrations-test#readme"
+  "bugs": {
+    "url": "https://github.com/liquid-labs/sdlcpilot-integrations-test/issues"
+  },
+  "homepage": "https://github.com/liquid-labs/sdlcpilot-integrations-test#readme",
+  "devDependencies": {
+    "@liquid-labs/catalyst-resource-babel-and-rollup": "^1.0.0-alpha.3",
+    "@liquid-labs/catalyst-resource-eslint": "^1.0.0-alpha.1",
+    "@liquid-labs/catalyst-resource-jest": "^1.0.0-alpha.4",
+    "@liquid-labs/shell-toolkit": "^1.0.0-alpha.7"
+  }
 }
