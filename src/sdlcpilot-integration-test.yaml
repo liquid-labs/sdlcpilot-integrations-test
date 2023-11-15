@@ -1,4 +1,4 @@
-name: Catalyst SDLC integration tests
+name: SDLCPilot integration tests
 
 on:
   workflow_dispatch: # runs manually ATM
