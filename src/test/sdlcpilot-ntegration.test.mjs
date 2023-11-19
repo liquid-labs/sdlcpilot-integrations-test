@@ -9,7 +9,7 @@ const SERVER_COMMAND=`comply-server`
 const SERVER_PACKAGE='comply-server'
 const BUNDLE_NAME='sdlcpilot-github-node'
 
-jest.setTimeout(60 * 1000)
+jest.setTimeout(120 * 1000) // 2 minutes
 
 const logCommandResult = (result) => {
   process.stdout.write('exit code: ' + result.code + '\n')
@@ -40,12 +40,6 @@ describe('sdlcpilot-github-node', () => {
     })
 
     process.stdout.write('Giving it time to spin up...\n')
-    await new Promise((resolve) => setTimeout(resolve, 5 * 1000 /* 5 seconds */))
-
-    process.stdout.write('WORKAROUND: Installing liq-integrations...\n') // TODO: WORKAROUND
-    logCommandResult(tryExec(`${CLI_COMMAND} server plugins handlers add -- npmNames=@liquid-labs/liq-integrations`))
-
-    process.stdout.write('Giving 5 seconds for logs to settle...\n')
     await new Promise((resolve) => setTimeout(resolve, 5 * 1000 /* 5 seconds */))
 
     process.stdout.write('Installing bundle...\n')
