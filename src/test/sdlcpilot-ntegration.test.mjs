@@ -54,8 +54,8 @@ describe('sdlcpilot-github-node', () => {
     logCommandResult(tryExec(`${CLI_COMMAND} server stop`))
   })
 
-  test('loads 10 handler plugins (plus original core)', () => {
+  test('loads 12 plugins (plus original core)', () => {
     const result = tryExec(`${CLI_COMMAND} server plugins handlers list | wc -l`)
-    expect(result.stdout.trim()).toBe('11')
+    expect(result.stdout.trim()).toBe('12')
   })
 })
